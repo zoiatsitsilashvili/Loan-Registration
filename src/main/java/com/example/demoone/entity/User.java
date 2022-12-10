@@ -1,9 +1,12 @@
 package com.example.demoone.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "users")
@@ -28,5 +31,7 @@ public class User {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-
+    @JsonBackReference
+    @OneToMany (mappedBy = "user")
+    private List<Post> posts;
 }
