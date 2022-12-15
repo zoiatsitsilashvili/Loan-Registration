@@ -1,18 +1,21 @@
 package com.example.demoone.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Data
 @Entity
+
 @Table(name = "posts")
 public class Post {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "title", nullable = false, length = -1)
     private String title;
@@ -20,15 +23,17 @@ public class Post {
     @Column(name = "body", nullable = false, length = -1)
     private String body;
 
-    @Column(name = "user_id", nullable = false)
-    private int userId;
 
-    @Column(name = "create_data", nullable = false)
-    private Timestamp createData;
+    @Column(name = "create_date", nullable = false, updatable = false)
+    private LocalDateTime createDate;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false,insertable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @PrePersist
+    public void prePersist(){
+        createDate = LocalDateTime.now();
+    }
 }

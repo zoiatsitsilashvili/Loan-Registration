@@ -1,10 +1,10 @@
 package com.example.demoone.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id", nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "username", nullable = false, length = -1)
     private String username;
@@ -25,13 +25,19 @@ public class User {
     @Column(name = "email", nullable = false, length = -1)
     private String email;
 
-    @Column(name = "create_date", nullable = false)
-    private Timestamp createDate;
+    @Column(name = "create_date", nullable = false, updatable = false)
+    private LocalDateTime createDate;
 
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany (mappedBy = "user")
     private List<Post> posts;
+
+    @PrePersist
+    public void prePersist(){
+        createDate = LocalDateTime.now();
+        active = true;
+    }
 }

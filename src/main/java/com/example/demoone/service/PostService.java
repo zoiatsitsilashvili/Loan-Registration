@@ -10,4 +10,6 @@ public interface PostService {
     Post getPost(int id);
 
     List<Post> getPostsByUserId(int userId);
+    Post addPost(Post post);
+
 }
