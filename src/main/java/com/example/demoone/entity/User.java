@@ -1,6 +1,6 @@
 package com.example.demoone.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -31,7 +31,7 @@ public class User {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-    @JsonManagedReference
+    @JsonIgnore
     @OneToMany (mappedBy = "user")
     private List<Post> posts;
 
