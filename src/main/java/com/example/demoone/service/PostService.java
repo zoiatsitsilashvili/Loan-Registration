@@ -11,8 +11,7 @@ import java.util.List;
 public interface PostService {
     Page<Post> getPosts(PostSearchParams params, Pageable pageable);
     Post getPost(int id);
-
     List<Post> getPostsByUserId(int userId);
     Post addPost(Post post);
-
+    void delete(int id);
 }

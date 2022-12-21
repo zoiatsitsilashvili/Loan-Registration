@@ -26,6 +26,7 @@ public class Post {
     @Column(name = "create_date", nullable = false, updatable = false)
     private LocalDateTime createDate;
 
+    private boolean delete;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

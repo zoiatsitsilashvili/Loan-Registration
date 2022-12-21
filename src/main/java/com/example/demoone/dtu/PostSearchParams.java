@@ -14,5 +14,6 @@ public class PostSearchParams {
     private LocalDate createDateFrom;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate createDateTo;
+    private boolean delete;
 
 }

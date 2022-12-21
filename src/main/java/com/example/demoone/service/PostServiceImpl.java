@@ -21,7 +21,6 @@ import java.util.List;
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
     private final UserService userService;
-
     public PostServiceImpl(PostRepository postRepository,
                            UserService userService) {
         this.postRepository = postRepository;
@@ -57,19 +56,15 @@ public class PostServiceImpl implements PostService {
             return predicate;
         }, pageable);
     }
-
-
     @Override
     public Post getPost(int id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Post not found"));
     }
-
     @Override
     public List<Post> getPostsByUserId(int userId) {
         return postRepository.findByUserId(userId);
     }
-
     @Override
     public Post addPost(Post post) {
         post.setId(null);
@@ -78,8 +73,13 @@ public class PostServiceImpl implements PostService {
         }
         return postRepository.save(post);
     }
+    @Override
+    public void delete(int id){
+       var foundUser = getPost(id);
+       foundUser.setDelete(true);
+       postRepository.save(foundUser);
 
-
+   }
 }
 
 
