@@ -1,6 +1,8 @@
 package com.example.demoone.entity;
 
+import com.example.demoone.dto.RegistrationDto;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,15 +11,20 @@ import java.time.LocalDateTime;
 @Entity
 @Setter
 @Getter
-@Table(name = "collateral", schema = "public", catalog = "postgres")
+@NoArgsConstructor
+@Table(name = "collaterals")
 @SequenceGenerator(name = "collateralIdGenerator", sequenceName = "collaterals_id_seq", allocationSize = 1)
 public class Collateral {
+    public Collateral(RegistrationDto.Collateral dto){
+        this.type = dto.getType();
+        this.value = dto.getValue();
+    }
+
     public enum CollateralType{
         CAR, HOUSE, LAND
     }
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collateralIdGenerator")
     @Id
-    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "type", nullable = false)
