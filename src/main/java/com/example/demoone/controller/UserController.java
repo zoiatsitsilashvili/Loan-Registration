@@ -1,6 +1,6 @@
 package com.example.demoone.controller;
 
-import com.example.demoone.dtu.UserSearchParams;
+import com.example.demoone.dto.UserSearchParams;
 import com.example.demoone.entity.Post;
 import com.example.demoone.entity.User;
 import com.example.demoone.service.PostService;

@@ -1,6 +1,6 @@
 package com.example.demoone.service;
 
-import com.example.demoone.dtu.PostSearchParams;
+import com.example.demoone.dto.PostSearchParams;
 import com.example.demoone.entity.Post;
 import com.example.demoone.entity.Post_;
 import com.example.demoone.entity.User;

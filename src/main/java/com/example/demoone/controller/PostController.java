@@ -1,6 +1,6 @@
 package com.example.demoone.controller;
 
-import com.example.demoone.dtu.PostSearchParams;
+import com.example.demoone.dto.PostSearchParams;
 import com.example.demoone.entity.Post;
 import com.example.demoone.service.PostService;
 import org.springframework.data.domain.Page;

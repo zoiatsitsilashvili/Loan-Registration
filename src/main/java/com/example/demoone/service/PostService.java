@@ -1,6 +1,6 @@
 package com.example.demoone.service;
 
-import com.example.demoone.dtu.PostSearchParams;
+import com.example.demoone.dto.PostSearchParams;
 import com.example.demoone.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

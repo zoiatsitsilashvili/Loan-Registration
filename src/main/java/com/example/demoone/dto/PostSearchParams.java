@@ -1,4 +1,4 @@
-package com.example.demoone.dtu;
+package com.example.demoone.dto;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

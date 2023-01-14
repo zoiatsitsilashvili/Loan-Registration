@@ -1,6 +1,6 @@
 package com.example.demoone.service;
 
-import com.example.demoone.dtu.UserSearchParams;
+import com.example.demoone.dto.UserSearchParams;
 import com.example.demoone.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

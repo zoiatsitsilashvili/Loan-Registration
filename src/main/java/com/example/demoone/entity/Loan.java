@@ -14,10 +14,10 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @Table(name = "loans")
-@SequenceGenerator(name = "loanIdGenerator", sequenceName = "loan_id_seq", allocationSize = 1)
+@SequenceGenerator(name = "loanIdGenerator", sequenceName = "loans_id_seq", allocationSize = 1)
 public class Loan {
-    public Loan(RegistrationDto.Loan dto){
-        if(dto == null){
+    public Loan (RegistrationDto.Loan dto) {
+        if(dto == null) {
             throw new IllegalArgumentException("loan is null");
         }
         this.amount = dto.getAmount();
@@ -28,10 +28,9 @@ public class Loan {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loanIdGenerator")
     @Id
-    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "loan_number", nullable = false, length = -1)
+    @Column(name = "loan_number", nullable = false)
     private String loanNumber;
 
     @Column(name = "amount", nullable = false)
@@ -40,10 +39,10 @@ public class Loan {
     @Column(name = "interest_rate", nullable = false)
     private Double interestRate;
 
-    @Column(name = "term ", nullable = false)
+    @Column(name = "term", nullable = false)
     private int term;
 
-    @Column(name = "interest ", nullable = false)
+    @Column(name = "interest")
     private Double interest;
 
     @Column(name = "created_at", nullable = false, updatable = false)

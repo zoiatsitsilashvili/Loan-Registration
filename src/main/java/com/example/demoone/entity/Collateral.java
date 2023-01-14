@@ -21,7 +21,9 @@ public class Collateral {
     }
 
     public enum CollateralType{
-        CAR, HOUSE, LAND
+        CAR,
+        HOUSE,
+        LAND,
     }
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "collateralIdGenerator")
     @Id
