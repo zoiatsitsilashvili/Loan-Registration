@@ -8,8 +8,12 @@ import com.example.demoone.exception.NotFoundException;
 import com.example.demoone.repository.CollateralRepository;
 import com.example.demoone.repository.CustomerRepository;
 import com.example.demoone.repository.LoanRepository;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 @Service
 public class LoanServiceImp implements LoanService {
@@ -46,5 +50,18 @@ public class LoanServiceImp implements LoanService {
     @Override
     public Loan get(int id) {
         return loanRepository.findById(id).orElseThrow(() -> new NotFoundException("Loan not found"));
+    }
+    @Scheduled(fixedRate = 60 * 1000)
+    public void calculateInterest() {
+        loanRepository.findAll().forEach(this::updateInterest);
+    }
+    @Override
+    public void updateInterest(Loan loan) {
+        var interestRate = loan.getInterestRate();
+        var dailyInterestRate = interestRate / 365;
+        long timeDiff = Math.abs(Duration.between(loan.getCreatedAt(), LocalDateTime.now()).toMinutes());
+        var interest = loan.getAmount() * dailyInterestRate / (24 * 60) * timeDiff;
+        loan.setInterest(interest);
+        loanRepository.save(loan);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demoone.entity;
 
 import com.example.demoone.dto.RegistrationDto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,8 +49,7 @@ public class Collateral {
        updatedAt = LocalDateTime.now();
    }
 
-
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "loan_id")
     private Loan loan;

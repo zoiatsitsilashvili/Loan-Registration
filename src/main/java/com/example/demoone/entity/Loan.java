@@ -42,7 +42,7 @@ public class Loan {
     @Column(name = "term", nullable = false)
     private int term;
 
-    @Column(name = "interest")
+    @Column(name = "interest", nullable = false)
     private Double interest;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -59,6 +59,7 @@ public class Loan {
     @ManyToOne
     @JoinColumn (name = "customer_id")
     private Customer customer;
+
 
     @OneToMany(mappedBy = "loan")
     private List<Collateral> collaterals;

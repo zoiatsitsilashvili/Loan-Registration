@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 public interface LoanService {
 
     Loan register(RegistrationDto registrationDto);
-
-
     Loan get(int id);
+    void updateInterest(Loan loan);
 }
