@@ -16,13 +16,13 @@ public class User {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "username", nullable = false, length = -1)
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false, length = -1)
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false, length = -1)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "create_date", nullable = false, updatable = false)

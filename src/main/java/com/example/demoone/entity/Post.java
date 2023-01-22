@@ -16,10 +16,10 @@ public class Post {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "title", nullable = false, length = -1)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "body", nullable = false, length = -1)
+    @Column(name = "body", nullable = false)
     private String body;
 
 

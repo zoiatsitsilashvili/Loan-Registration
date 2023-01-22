@@ -24,6 +24,7 @@ public class Customer {
         this.birthDate = dto.getBirthDate();
     }
 
+
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerIdGenerator")
     @Id
     private Integer id;
@@ -40,6 +41,12 @@ public class Customer {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    public Customer(String firstName, String lastName, String privateNumber, String birthDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.privateNumber = privateNumber;
+        this.birthDate = LocalDate.parse(birthDate);
+    }
 
 
     @PrePersist
