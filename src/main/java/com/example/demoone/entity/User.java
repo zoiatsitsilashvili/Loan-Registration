@@ -35,6 +35,12 @@ public class User {
     @OneToMany (mappedBy = "user")
     private List<Post> posts;
 
+    public User(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
     @PrePersist
     public void prePersist(){
         createDate = LocalDateTime.now();

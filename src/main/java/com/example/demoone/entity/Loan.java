@@ -33,10 +33,10 @@ public class Loan {
     @Column(name = "loan_number", nullable = false)
     private String loanNumber;
 
-    @Column(name = "amount", nullable = false)
+    @Column(name = "amount")
     private Double amount;
 
-    @Column(name = "interest_rate", nullable = false)
+    @Column(name = "interest_rate")
     private Double interestRate;
 
     @Column(name = "term", nullable = false)

@@ -32,6 +32,12 @@ public class Post {
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    public Post(String title, String body, User user) {
+        this.title = title;
+        this.body = body;
+        this.user = user;
+    }
+
     @PrePersist
     public void prePersist(){
         createDate = LocalDateTime.now();

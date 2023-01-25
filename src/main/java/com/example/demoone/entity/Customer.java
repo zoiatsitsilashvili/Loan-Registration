@@ -23,6 +23,7 @@ public class Customer {
         this.lastName = dto.getLastName();
         this.birthDate = dto.getBirthDate();
     }
+   
 
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerIdGenerator")
@@ -34,18 +35,18 @@ public class Customer {
     private String firstName;
     @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private LocalDate birthDate;
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public Customer(String firstName, String lastName, String privateNumber, String birthDate) {
+    public Customer(String firstName, String lastName, String privateNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.privateNumber = privateNumber;
-        this.birthDate = LocalDate.parse(birthDate);
+
     }
 
 

@@ -30,10 +30,10 @@ public class Collateral {
     @Id
     private Integer id;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "coll_type", nullable = false)
     private CollateralType type;
 
-    @Column(name = "value", nullable = false)
+    @Column(name = "coll_value", nullable = false)
     private Double value;
 
     @Column(name = "created_at", nullable = false, updatable = false)
