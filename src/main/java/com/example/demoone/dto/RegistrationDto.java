@@ -1,7 +1,9 @@
 package com.example.demoone.dto;
 
 import com.example.demoone.entity.Collateral.CollateralType;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistrationDto {
   private Loan loan;
   private Customer customer;
@@ -17,6 +21,8 @@ public class RegistrationDto {
 
   @Setter
   @Getter
+  @NoArgsConstructor
+  @AllArgsConstructor
   public static class Loan{
       private String loanNumber;
       private Double amount;
@@ -26,6 +32,8 @@ public class RegistrationDto {
 
   @Setter
   @Getter
+  @NoArgsConstructor
+  @AllArgsConstructor
   public static class Customer{
     private String privateNumber;
     private String firstName;
@@ -36,6 +44,8 @@ public class RegistrationDto {
 
   @Setter
   @Getter
+  @AllArgsConstructor
+  @NoArgsConstructor
   public static class Collateral{
     private CollateralType type;
     private Double value;

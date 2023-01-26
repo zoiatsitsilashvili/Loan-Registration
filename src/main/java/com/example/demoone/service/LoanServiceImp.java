@@ -7,7 +7,9 @@ import com.example.demoone.exception.NotFoundException;
 import com.example.demoone.repository.CollateralRepository;
 import com.example.demoone.repository.CustomerRepository;
 import com.example.demoone.repository.LoanRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,15 +21,16 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.time.Duration;
 import java.time.LocalDateTime;
-
+@Slf4j
 @Service
 public class LoanServiceImp implements LoanService {
     private final LoanRepository loanRepository;
     private final CollateralRepository collateralRepository;
     private final CustomerRepository customerRepository;
+
     public LoanServiceImp(LoanRepository loanRepository,
                           CollateralRepository collateralRepository,
-                          CustomerRepository customerRepository) {
+                          CustomerRepository customerRepository, RestTemplateBuilder restTemplateBuilder) {
         this.loanRepository = loanRepository;
         this.collateralRepository = collateralRepository;
         this.customerRepository = customerRepository;
@@ -36,6 +39,9 @@ public class LoanServiceImp implements LoanService {
     @Transactional
     public Loan register(RegistrationDto registrationDto) {
         var customerDto = registrationDto.getCustomer();
+        if(customerDto.getPrivateNumber() == null){
+            throw new IllegalArgumentException("Customer not found");
+        }
         var customer = new Customer(customerDto);
         customerRepository.save(customer);
 
@@ -90,7 +96,7 @@ public class LoanServiceImp implements LoanService {
                 predicate = cb.and(predicate, cb.like(root.get(Loan_.LOAN_NUMBER), loanSearchParams.getLoanNumber()));
             }
             if(loanSearchParams.getBirthDate() != null){
-                predicate = cb.and(predicate, cb.equal(customer.get(Customer_.BIRTH_DATE), loanSearchParams.getBirthDate()));
+               predicate = cb.and(predicate, cb.equal(customer.get(Customer_.BIRTH_DATE), loanSearchParams.getBirthDate()));
             }
             if(loanSearchParams.getCreatedAt() != null){
                 var createdAt = loanSearchParams.getCreatedAt().atStartOfDay();
