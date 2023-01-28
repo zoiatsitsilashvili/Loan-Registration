@@ -42,10 +42,11 @@ public class Customer {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    public Customer(String firstName, String lastName, String privateNumber) {
+    public Customer(String firstName, String lastName, String privateNumber, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.privateNumber = privateNumber;
+        this.birthDate = birthDate;
 
     }
 

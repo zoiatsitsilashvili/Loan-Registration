@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,8 +19,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistrationDto {
+  @Valid
+  @NotNull
   private Loan loan;
+  @Valid
+  @NotNull
   private Customer customer;
+  @Valid
+  @NotNull
   private List<Collateral> collaterals;
 
   @Setter
@@ -24,9 +34,16 @@ public class RegistrationDto {
   @NoArgsConstructor
   @AllArgsConstructor
   public static class Loan{
+    @NotNull
       private String loanNumber;
+    @NotNull
+    @Min(100)
       private Double amount;
+    @Min(2)
+    @Max(100)
       private Integer term;
+    @NotNull
+    @Min(1)
       private Double interestRate;
   }
 
@@ -35,6 +52,7 @@ public class RegistrationDto {
   @NoArgsConstructor
   @AllArgsConstructor
   public static class Customer{
+    @NotNull
     private String privateNumber;
     private String firstName;
     private String lastName;
@@ -47,7 +65,9 @@ public class RegistrationDto {
   @AllArgsConstructor
   @NoArgsConstructor
   public static class Collateral{
+    @NotNull
     private CollateralType type;
+    @NotNull
     private Double value;
   }
 

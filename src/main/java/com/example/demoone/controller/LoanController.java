@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/loans")
 public class LoanController {
@@ -22,7 +24,7 @@ public class LoanController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity <Loan> register(@RequestBody RegistrationDto registrationDto) {
+    public ResponseEntity <Loan> register(@RequestBody @Valid RegistrationDto registrationDto) {
         Loan registered = loanService.register(registrationDto);
         var location = UriComponentsBuilder.fromPath("/loans/{id}").buildAndExpand(registered.getId()).toUri();
         return  ResponseEntity.created(location).body(registered);

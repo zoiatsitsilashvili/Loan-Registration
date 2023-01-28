@@ -9,7 +9,6 @@ import com.example.demoone.repository.CustomerRepository;
 import com.example.demoone.repository.LoanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -30,7 +29,7 @@ public class LoanServiceImp implements LoanService {
 
     public LoanServiceImp(LoanRepository loanRepository,
                           CollateralRepository collateralRepository,
-                          CustomerRepository customerRepository, RestTemplateBuilder restTemplateBuilder) {
+                          CustomerRepository customerRepository) {
         this.loanRepository = loanRepository;
         this.collateralRepository = collateralRepository;
         this.customerRepository = customerRepository;
@@ -39,18 +38,23 @@ public class LoanServiceImp implements LoanService {
     @Transactional
     public Loan register(RegistrationDto registrationDto) {
         var customerDto = registrationDto.getCustomer();
+        var loanDto = registrationDto.getLoan();
+        var collateralDtos = registrationDto.getCollaterals();
+
         if(customerDto.getPrivateNumber() == null){
-            throw new IllegalArgumentException("Customer not found");
+            throw new IllegalArgumentException("Private number is required");
+        }
+        if(loanDto.getLoanNumber() == null){
+            throw new IllegalArgumentException("Loan number is required");
         }
         var customer = new Customer(customerDto);
         customerRepository.save(customer);
 
-        var loanDto = registrationDto.getLoan();
+
         var loan = new Loan(loanDto);
         loan.setCustomer(customer);
         loanRepository.save(loan);
 
-        var collateralDtos = registrationDto.getCollaterals();
         for (var collateralDto : collateralDtos){
             var collateral = new Collateral(collateralDto);
             collateral.setLoan(loan);

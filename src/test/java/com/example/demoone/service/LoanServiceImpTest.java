@@ -47,8 +47,7 @@ class LoanServiceImpTest {
         var loanDto = new RegistrationDto.Loan("12345678", 1000.0, 12, 12.0);
         var collateralDto = new RegistrationDto.Collateral(Collateral.CollateralType.CAR, 1000.0);
         var registrationDto = new RegistrationDto(loanDto, customerDto, of(collateralDto, collateralDto));
-        //Loan loan2 = new Loan(loanDto);
-       // when(loanRepository.save(loan2)).thenReturn(loan2);
+
         var loan = loanServiceImp.register(registrationDto);
         assertNotNull(loan);
         assertEquals(loanDto.getAmount(), loan.getAmount());
@@ -69,5 +68,16 @@ class LoanServiceImpTest {
         var registrationDto = new RegistrationDto(loanDto, customerDto, of(collateralDto, collateralDto));
         assertThrows(IllegalArgumentException.class, () -> loanServiceImp.register(registrationDto));
     }
+    @Test
+    public void testLoanRegister_when_loan_number_is_null() {
+
+        var customerDto = new RegistrationDto.Customer(
+                "010101010", "nana", "narsia", LocalDate.of(2000, 1, 1));
+        var loanDto = new RegistrationDto.Loan(null, 1000.0, 12, 12.0);
+        var collateralDto = new RegistrationDto.Collateral(Collateral.CollateralType.CAR, 1000.0);
+        var registrationDto = new RegistrationDto(loanDto, customerDto, of(collateralDto, collateralDto));
+        assertThrows(IllegalArgumentException.class, () -> loanServiceImp.register(registrationDto));
+    }
+
 
 }

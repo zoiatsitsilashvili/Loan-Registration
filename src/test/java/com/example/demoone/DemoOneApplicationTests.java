@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.Query;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.Matchers.*;
@@ -46,7 +47,7 @@ class DemoOneApplicationTests {
 
 	@Test
 	void testSearchingLoans() throws Exception {
-		var customer = new Customer("firstName", "lastName", "privateNumber");
+		var customer = new Customer("firstName", "lastName", "privateNumber", LocalDate.of(2000,1,1));
 		em.persistAndFlush(customer);
 		em.refresh(customer);
 		for (var i = 1; i < 20; i++) {
@@ -65,7 +66,7 @@ class DemoOneApplicationTests {
 	}
     @Test
 	void testAddingLoans() throws Exception {
-        var customer = new Customer("firstName", "lastName", "privateNumber");
+        var customer = new Customer("firstName", "lastName", "privateNumber", LocalDate.of(2000,1,1));
 		var loan = new Loan("loanNumber", customer);
 		var body = objectMapper.writeValueAsString(loan);
 		mockMvc.perform(post("/loans")
