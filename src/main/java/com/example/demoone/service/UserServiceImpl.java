@@ -1,16 +1,11 @@
 package com.example.demoone.service;
 
-import com.example.demoone.dto.UserSearchParams;
 import com.example.demoone.entity.User;
-import com.example.demoone.entity.User_;
 import com.example.demoone.exception.NotFoundException;
 import com.example.demoone.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.Predicate;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,31 +14,10 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
     @Override
-    public Page<User> getUsers(UserSearchParams params, Pageable pageable) {
-        return userRepository.findAll((root, query, cb) -> {
-            Predicate predicate = cb.conjunction();
-            if (params.getId() != null) {
-                predicate = cb.and(predicate, cb.equal(root.get(User_.ID), params.getId()));
-            }
-            // აქ რადგან დაჯოინებული გვაქვს და პოსტსერვისში ძებნის პარამეტრშიც გვაქვს გათვალისწინებული
-            // მერე გამახსენდა
-            // if(StringUtils.isNotEmpty(params.getUsername())){
-            //  predicate = cb.and(predicate, cb.like(root.get(User_.USERNAME), '%' +params.getUsername() + '%'));
-            //}
-
-            if (StringUtils.isNotEmpty(params.getEmail())) {
-                predicate = cb.and(predicate, cb.like(root.get(User_.EMAIL), '%' + params.getEmail() + '%'));
-            }
-            if (params.getCreateDate() != null) {
-                predicate = cb.and(predicate, cb.greaterThanOrEqualTo(root.get(User_.CREATE_DATE), params.getCreateDate()));
-            }
-
-            return predicate;
-        }, pageable);
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
-
     @Override
     public User getUserById(int id) {
         return userRepository.findById(id)
@@ -78,4 +52,5 @@ public class UserServiceImpl implements UserService {
         userRepository.save(foundUser);
         return foundUser;
     }
+
 }

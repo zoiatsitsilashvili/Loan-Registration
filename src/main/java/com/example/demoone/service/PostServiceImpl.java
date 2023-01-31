@@ -7,6 +7,7 @@ import com.example.demoone.entity.User;
 import com.example.demoone.entity.User_;
 import com.example.demoone.exception.NotFoundException;
 import com.example.demoone.repository.PostRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.util.List;
-
+@Slf4j
 @Service
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;

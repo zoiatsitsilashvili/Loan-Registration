@@ -1,12 +1,14 @@
 package com.example.demoone.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
 @Entity
+@NoArgsConstructor
 
 @Table(name = "posts")
 public class Post {

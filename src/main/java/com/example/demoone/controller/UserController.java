@@ -1,14 +1,12 @@
 package com.example.demoone.controller;
 
-import com.example.demoone.dto.UserSearchParams;
 import com.example.demoone.entity.Post;
 import com.example.demoone.entity.User;
 import com.example.demoone.service.PostService;
 import com.example.demoone.service.UserService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -16,25 +14,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
     private final PostService postService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserController(UserService userService, PostService postService) {
-        this.userService = userService;
-        this.postService = postService;
-    }
+
+
     @GetMapping
-    public Page<User> getUsers(@RequestParam(required = false, defaultValue = "1") int page,
-                               @RequestParam(required = false, defaultValue = "10") int size,
-                               @RequestParam(required = false, defaultValue = "DESC") Sort.Direction direction,
-                               @RequestParam(required = false, defaultValue = "id")String field,
-                               UserSearchParams params) {
-        Sort sorter = Sort.by(direction, field);
-        return userService.getUsers(params, PageRequest.of(page,size, sorter));
+    public List<User> getUsers() {
+        return userService.getUsers();
     }
     @GetMapping("/{id}")
     public User getUser (@PathVariable int id){
+        System.out.println(passwordEncoder.encode("zoia"));
         return userService.getUserById(id);
     }
 

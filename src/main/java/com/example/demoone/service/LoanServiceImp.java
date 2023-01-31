@@ -7,7 +7,6 @@ import com.example.demoone.exception.NotFoundException;
 import com.example.demoone.repository.CollateralRepository;
 import com.example.demoone.repository.CustomerRepository;
 import com.example.demoone.repository.LoanRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +19,7 @@ import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import java.time.Duration;
 import java.time.LocalDateTime;
-@Slf4j
+
 @Service
 public class LoanServiceImp implements LoanService {
     private final LoanRepository loanRepository;

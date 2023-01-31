@@ -1,14 +1,18 @@
 package com.example.demoone.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +33,7 @@ public class User {
     private LocalDateTime createDate;
 
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private Boolean active;
 
     @JsonIgnore
     @OneToMany (mappedBy = "user")
